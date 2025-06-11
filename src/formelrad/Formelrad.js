@@ -9,7 +9,6 @@ export default function Formelrad() {
         i: 2,
         r: ""
     })
-    
     return (
         <>
             <section>
