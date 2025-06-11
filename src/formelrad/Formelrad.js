@@ -12,31 +12,22 @@ export default function Formelrad() {
         p: ""
     })
 
-    // KOMBINIERTE LÖSUNG: Beide Features zusammengeführt
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("handleSubmit")
-        
-        // CalcU: Berechne u und i
         if (values.u === "" && values.i === "") {
             /*calculate u and i */
             setValues(values => ({...values, u: Math.sqrt(values.p * values.r)}));
             setValues(values => ({...values, i: Math.sqrt(values.p / values.r)}));
-        } 
-        // CalcU: Berechne u und r  
-        else if (values.u === "" && values.r === "") {
+        } else if (values.u === "" && values.r === "") {
             /*calculate u and r */
             setValues(values => ({...values, u: values.p / values.i}));
             setValues(values => ({...values, r: values.p / (values.i * values.i)}));
-        }
-        // CalcI: Berechne i und r
-        else if (values.i === "" && values.r === "") {
+        } else if (values.i === "" && values.r === "") {
             /*calculate i and r */
             setValues(values => ({...values, i: values.p / values.u}));
             setValues(values => ({...values, r: values.u * values.u / values.p}));
-        } 
-        // CalcI: Berechne i und p
-        else if (values.i === "" && values.p === "") {
+        } else if (values.i === "" && values.p === "") {
             /*calculate i and p */
             setValues(values => ({...values, i: values.u / values.r}));
             setValues(values => ({...values, p: values.u * values.u / values.r}));
