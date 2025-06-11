@@ -12,18 +12,42 @@ export default function Formelrad() {
         message: ""
     })
 
+    // RESETANDCLEAR FEATURE: Clear Handler
+    const handleClear = () => {
+        setValues({
+            u: "",
+            i: "",
+            r: "",
+            p: "",
+            message: ""
+        })
+    }
+    
+    // RESETANDCLEAR FEATURE: Reset Handler
+    const handleReset = () => {
+        setValues({
+            u: 10,
+            i: 2,
+            r: "",
+            p: "",
+            message: ""
+        })
+    }
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("handleSubmit")
 
+        // MESSAGE FEATURE: Prüfe ob genau 2 Felder leer sind
         let count = 0;
         if (values.u === "") count++;
         if (values.i === "") count++;
         if (values.r === "") count++;
         if (values.p === "") count++;
+        
         if (count !== 2) {
             setValues(values => ({...values, message: "2 Felder leer lassen, 2 Felder ausfüllen"}));
-        }else {
+        } else {
             setValues(values => ({...values, message: ""}));
 
             if (values.u === "" && values.i === "") {
@@ -66,7 +90,11 @@ export default function Formelrad() {
                     <InputField color={"black"} value={values.i} label="Stromstärke" handleChange={e => {setValues(values => ({...values, i: e.target.value}))}} />
                     <InputField color={"black"} value={values.r} label="Widerstand" handleChange={e => {setValues(values => ({...values, r: e.target.value}))}} />
                     <InputField color={"black"} value={values.p} label="Leistung" handleChange={e => {setValues(values => ({...values, p: e.target.value}))}} />
+                    
                     <button type="submit">Calculate</button>
+                    <button type="button" onClick={handleClear}>Clear</button>
+                    <button type="button" onClick={handleReset}>Reset</button>
+                    
                     <p>{values.message}</p>
                 </form>
             </section>
