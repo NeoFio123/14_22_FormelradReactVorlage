@@ -1,6 +1,8 @@
 import {useState} from "react";
 import '../css/mvp.css';
 import formelrad from "../image/formelradelektronik.gif";
+import '../css/mvp.css';
+import formelrad from "../image/formelradelektronik.gif";
 import InputField from "../formular/InputField";
 
 export default function Formelrad() {
