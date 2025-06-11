@@ -10,7 +10,7 @@ export default function Formelrad() {
         r: "",
         p: "",
         message: "",
-        // FIELDTEXTCOLOR FEATURE: Farben für berechnete Felder
+        messageColor: "red", // BUGFIX: Farbe für Message-Text
         uColor: "black",
         iColor: "black", 
         rColor: "black",
@@ -25,6 +25,7 @@ export default function Formelrad() {
             r: "",
             p: "",
             message: "",
+            messageColor: "red",
             uColor: "black",
             iColor: "black",
             rColor: "black", 
@@ -40,6 +41,7 @@ export default function Formelrad() {
             r: "",
             p: "",
             message: "",
+            messageColor: "red",
             uColor: "black",
             iColor: "black",
             rColor: "black",
@@ -59,9 +61,24 @@ export default function Formelrad() {
         if (values.p === "") count++;
         
         if (count !== 2) {
-            setValues(values => ({...values, message: "2 Felder leer lassen, 2 Felder ausfüllen"}));
+            // BUGFIX: Message-Farbe abhängig von Anzahl leerer Felder
+            let messageColor = "red";
+            if (count === 0) messageColor = "green";
+            else if (count === 1) messageColor = "orange";
+            else if (count === 3) messageColor = "blue";
+            else if (count === 4) messageColor = "purple";
+            
+            setValues(values => ({
+                ...values, 
+                message: "2 Felder leer lassen, 2 Felder ausfüllen",
+                messageColor: messageColor
+            }));
         } else {
-            setValues(values => ({...values, message: ""}));
+            setValues(values => ({
+                ...values, 
+                message: "",
+                messageColor: "green"
+            }));
 
             // FIELDTEXTCOLOR FEATURE: Farben zurücksetzen
             setValues(values => ({...values, uColor: "black", iColor: "black", rColor: "black", pColor: "black"}));
@@ -112,6 +129,8 @@ export default function Formelrad() {
                 <header>
                     <h2>Formelrad</h2>
                     <img src={formelrad} width="200" alt="Formelrad"/>
+                    {/* BUGFIX: User Instruction */}
+                    <p><strong>Anleitung:</strong> Füllen Sie genau 2 Felder aus und lassen Sie 2 Felder leer. Klicken Sie dann auf "Calculate".</p>
                 </header>
                 <form onSubmit={handleSubmit}>
                     <InputField color={values.uColor} value={values.u} label="Spannung" handleChange={e => {setValues(values => ({...values, u: e.target.value}))}} />
@@ -123,7 +142,8 @@ export default function Formelrad() {
                     <button type="button" onClick={handleClear}>Clear</button>
                     <button type="button" onClick={handleReset}>Reset</button>
                     
-                    <p>{values.message}</p>
+                    {/* BUGFIX: Message mit dynamischer Farbe */}
+                    <p style={{color: values.messageColor, fontWeight: 'bold'}}>{values.message}</p>
                 </form>
             </section>
         </>
